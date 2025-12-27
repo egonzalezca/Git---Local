@@ -1,0 +1,63 @@
+Gitea es la mejor solución si quieres tener la "experiencia GitHub" (interfaz web, gráficas, gestión de tareas, control de quién subió qué) pero **totalmente offline** dentro de tu oficina.
+
+Como en tu oficina son estrictos, Gitea les encantará porque **es un solo archivo `.exe`** que no requiere instalación compleja.
+
+Aquí tienes cómo montarlo para trabajar con tu compañero:
+
+---
+
+### 1. El Concepto
+En lugar de una carpeta de red "muerta", uno de los dos ordenadores (o un servidor que tengan siempre encendido) ejecutará el programa Gitea.
+*   **Tu PC (Servidor):** Ejecuta `gitea.exe`.
+*   **Tu Compañero:** Accede a través del navegador poniendo tu dirección IP (ejemplo: `http://192.168.1.15:3000`).
+
+---
+
+### 2. Instalación (Solo 5 minutos)
+
+1.  **Descarga:** Ve a la [página de descargas de Gitea](https://dl.gitea.com/gitea/) y baja el archivo para Windows (ej: `gitea-1.21-windows-4.0-amd64.exe`).
+2.  **Preparación:**
+    *   Crea una carpeta en tu PC llamada `C:\Gitea`.
+    *   Mueve el `.exe` ahí y cámbiale el nombre a solo `gitea.exe`.
+3.  **Ejecución:**
+    *   Haz doble clic en `gitea.exe`. Se abrirá una ventana de consola (no la cierres, es el motor del servidor).
+4.  **Configuración inicial:**
+    *   Abre tu navegador y ve a `http://localhost:3000`.
+    *   **Base de datos:** Elige **SQLite3** (es la más simple, guarda todo en un archivito).
+    *   **Ruta de repositorios:** Puedes poner una carpeta en tu disco local.
+    *   **Configuración de servidor:** En "Dominio" y "URL base", si quieres que tu compañero entre, pon tu **dirección IP** en lugar de `localhost`.
+    *   **Cuenta de administrador:** Crea tu usuario al final del formulario.
+
+---
+
+### 3. Cómo usarlo con tu compañero
+
+#### Paso A: Crear el repositorio en la web
+Igual que en GitHub, le das al botón **"+"** -> **Nuevo Repositorio**. Le pones nombre y listo. Gitea te dará una URL, por ejemplo: `http://192.168.1.15:3000/tu_usuario/proyecto.git`.
+
+#### Paso B: Conectar VS Code
+Ahora ya no usas rutas de carpeta (Z:\...), usas la URL:
+1.  En VS Code: `Ctrl + Shift + P` -> **Git: Clone**.
+2.  Pegas la URL de Gitea.
+3.  Te pedirá tu usuario y contraseña (los que creaste en la web de Gitea).
+
+---
+
+### 4. ¿Por qué elegir Gitea en lugar de la carpeta de red?
+
+| Característica | Carpeta de Red (Bare) | Gitea (Local) |
+| :--- | :--- | :--- |
+| **Interfaz Visual** | No (solo comandos o VS Code) | Sí (puedes ver el código en el navegador) |
+| **Pull Requests** | No | Sí (puedes revisar el código de tu compañero antes de unirlo) |
+| **Gestión de Tareas** | No | Sí (tiene un tablero tipo "Trello" para tareas pendientes) |
+| **Conflictos** | Se resuelven en VS Code | Se visualizan mucho mejor |
+| **Seguridad** | Permisos de carpeta de Windows | Usuarios y contraseñas propios |
+
+---
+
+### 5. Recomendación final
+
+*   **Si quieren lo más simple y rápido:** Sigan con el **Repositorio Bare en la carpeta de red**. Es "invisible" y cumple su función sin que nadie note que hay un servidor corriendo.
+*   **Si el proyecto va a crecer o durar meses:** Instalen **Gitea**. Ver la evolución del código en una web, poder ver las diferencias (diffs) entre versiones de forma visual y tener una lista de "tareas pendientes" (Issues) dentro de la misma herramienta ayuda muchísimo a la productividad.
+
+**Truco de oficina:** Si instalas Gitea, puedes poner el archivo `gitea.exe` como un "Servicio de Windows" para que se inicie solo cada vez que enciendas tu PC y tu compañero nunca pierda la conexión.
